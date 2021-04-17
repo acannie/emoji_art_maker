@@ -9,7 +9,7 @@ class EmojiArtMaker:
     G = 1
     B = 2
 
-    # あつ森の仕様
+    # 出力フォーマット
     ART_WH = 100
     EMOJIS = {"red": {"rgb": [255, 0, 0], "emoji": "🟥"}, "orange": {"rgb": [255, 165, 0], "emoji": "🟧"}, "yellow": {"rgb": [255, 255, 0], "emoji": "🟨"},
               "green": {"rgb": [0, 255, 0], "emoji": "🟩"}, "blue": {"rgb": [0, 0, 255], "emoji": "🟦"}, "purple": {"rgb": [128, 0, 128], "emoji": "🟪"},
@@ -69,9 +69,6 @@ class EmojiArtMaker:
         IMG_HEIGHT = self.im.shape[0]
         IMG_WIDTH = self.im.shape[1]
         COLOR_VARIETY = self.im.shape[2]
-
-        # データ分析用
-        _rgb = []
 
         for r in range(EmojiArtMaker.ART_WH):
             for c in range(EmojiArtMaker.ART_WH):
