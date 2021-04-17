@@ -1,6 +1,7 @@
 from PIL import Image
 import numpy as np
 import sys
+import math
 
 
 class EmojiArtMaker:
@@ -80,7 +81,7 @@ class EmojiArtMaker:
 
     def __similar_emoji(self, rgb):
         rgb = np.array(rgb)
-        smallest_distance = 255**2 * 3
+        smallest_distance = math.sqrt(255**2 * 3)
         target_color = str()
         for emoji_name, emoji_item in EmojiArtMaker.EMOJIS.items():
             emoji_rgb = np.array(emoji_item["rgb"])
