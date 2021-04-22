@@ -39,13 +39,14 @@ class PickedImageWidget extends StatelessWidget {
           builder: (BuildContext context, AsyncSnapshot<MemoryImage> snapshot) {
             if (snapshot.connectionState == ConnectionState.done &&
                 null != snapshot.data) {
-              final image = snapshot.data;
+              MemoryImage? image = snapshot.data;
               if (image != null) {
                 return InkWell(
-                    onTap: () {
-                      _future = controller.pickImage();
-                    },
-                    child: Image.memory(image.bytes, fit: BoxFit.fill));
+                  onTap: () {
+                    _future = controller.pickImage();
+                  },
+                  child: Image.memory(image.bytes, fit: BoxFit.fill),
+                );
               }
             }
             return Padding(

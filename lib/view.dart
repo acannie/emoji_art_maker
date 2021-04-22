@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'upload_image.dart';
 import 'create_mydesign.dart';
 import 'create_palette.dart';
+import 'emoji_art.dart';
 import 'pick_image.dart';
 
 // ページ全体のレイアウトを生成
@@ -36,6 +37,10 @@ class MyDesigner extends StatelessWidget {
                               Wrap(
                                 direction: Axis.horizontal,
                                 children: <Widget>[
+                                  Padding(
+                                    padding: EdgeInsets.all(20),
+                                    child: EmojiArtPreviewWidget(),
+                                  ),
                                   Padding(
                                     padding: EdgeInsets.all(20),
                                     child: MyDesignPreviewWidget(),
