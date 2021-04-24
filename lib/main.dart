@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 
 import 'view.dart';
 import 'pick_image.dart';
-import 'upload_image.dart';
 
 void main() {
   runApp(MyApp());
@@ -23,8 +22,8 @@ class MyApp extends StatelessWidget {
           providers: [
             ChangeNotifierProvider(
                 create: (context) => PickedImageController()),
-            ChangeNotifierProvider(
-                create: (context) => ImageUploadController()),
+            // ChangeNotifierProvider(
+            //     create: (context) => ImageUploadController()),
           ],
         ));
   }

@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'upload_image.dart';
-import 'create_mydesign.dart';
-import 'create_palette.dart';
 import 'emoji_art.dart';
 import 'pick_image.dart';
 
@@ -11,7 +8,7 @@ class MyDesigner extends StatelessWidget {
   Widget appBarMain() {
     return AppBar(
       leading: Icon(Icons.menu),
-      title: const Text('AC MyDesigner'),
+      title: const Text('Emoji Art Maker'),
       backgroundColor: Colors.orange,
       centerTitle: true,
     );
@@ -19,38 +16,45 @@ class MyDesigner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String greeting =
+        "絵文字アートメーカーにようこそ！\n選択した画像を9つの絵文字\n🟥🟧🟨🟩🟦🟪🟫⬛️⬜️\nで再現するツールです。";
+
     return Scaffold(
-        appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(100),
-          child: appBarMain(),
-        ),
-        body: Center(
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(50),
+        child: appBarMain(),
+      ),
+      body: Center(
+        child: Container(
+          child: SingleChildScrollView(
             child: Container(
-                child: SingleChildScrollView(
-                    child: Container(
-                        padding: EdgeInsets.all(0),
-                        child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: <Widget>[
-                              PickedImageWidget(),
-                              ImageUploadButtonWidget(),
-                              Wrap(
-                                direction: Axis.horizontal,
-                                children: <Widget>[
-                                  Padding(
-                                    padding: EdgeInsets.all(20),
-                                    child: EmojiArtPreviewWidget(),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.all(20),
-                                    child: MyDesignPreviewWidget(),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.all(20),
-                                    child: MyDesignColorPalette(),
-                                  ),
-                                ],
-                              ),
-                            ]))))));
+              padding: EdgeInsets.all(0),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.all(20),
+                  ),
+                  Text(greeting),
+                  Padding(
+                    padding: EdgeInsets.all(20),
+                  ),
+                  PickedImageWidget(),
+                  Wrap(
+                    direction: Axis.horizontal,
+                    children: <Widget>[
+                      Padding(
+                        padding: EdgeInsets.all(20),
+                        child: EmojiArtPreviewWidget(),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }

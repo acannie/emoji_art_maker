@@ -10,7 +10,6 @@ import 'dart:ui';
 // FEに画像がアップロードされたことを通知
 class PickedImageController with ChangeNotifier {
   Future<MemoryImage>? _imageFuture;
-
   Future<MemoryImage>? get imageFuture => _imageFuture;
 
   Future<MemoryImage> pickImage() async {
@@ -47,21 +46,38 @@ class PickedImageWidget extends StatelessWidget {
               MemoryImage? image = snapshot.data;
 
               if (image != null) {
-                imageUtil.Image im = imageUtil.copyResize(
-                    imageUtil.decodeImage(image.bytes)!,
-                    width: 10,
-                    height: 10);
-
-                return InkWell(
-                  onTap: () {
-                    _future = controller.pickImage();
-                  },
-                  child: Image.memory(
-                      Uint8List.fromList(imageUtil.encodeJpg(im)),
-                      width: 256,
-                      height: 256,
-                      fit: BoxFit.fill),
-                );
+                return Column(children: <Widget>[
+                  InkWell(
+                    onTap: () {
+                      _future = controller.pickImage();
+                    },
+                    //   child: Image.memory(
+                    //       Uint8List.fromList(imageUtil.encodeJpg(image)),
+                    //       width: 256,
+                    //       height: 256,
+                    //       fit: BoxFit.fill),
+                    child: Image.memory(image.bytes),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(20),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Container(
+                          width: 50.0,
+                          height: 50.0,
+                          alignment: Alignment.center,
+                          decoration: new BoxDecoration(
+                            image: DecorationImage(
+                                image: AssetImage('mark_arrow_up.png'),
+                                fit: BoxFit.fill),
+                          ),
+                        ),
+                        Text("クリックして画像選択"),
+                      ],
+                    ),
+                  ),
+                ]);
               }
             }
             return Padding(

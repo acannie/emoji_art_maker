@@ -1,31 +1,87 @@
 import 'dart:async';
+import 'dart:typed_data';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
-import 'package:image/image.dart' as im;
+import 'package:image/image.dart' as imageUtil;
+import 'package:flutter/services.dart';
 
+import 'utils.dart';
 import 'pick_image.dart';
 
-// マイデザインのプレビューを生成
+// 絵文字アートのプレビューを生成
 class EmojiArtPreviewWidget extends StatelessWidget {
+  int emojiArtWidth = 100;
+  int emojiArtHeight = 100;
+
   @override
   Widget build(BuildContext context) {
-    final PickedImageController upload_controller =
+    final PickedImageController pickedController =
         Provider.of<PickedImageController>(context);
 
     return FutureBuilder<MemoryImage>(
-      future: upload_controller.imageFuture,
+      future: pickedController.imageFuture,
       builder: (BuildContext context, AsyncSnapshot<MemoryImage> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return CircularProgressIndicator();
         } else if (snapshot.connectionState == ConnectionState.done &&
             null != snapshot.data) {
           MemoryImage image = snapshot.data!;
-          // return Image.memory(image.bytes, fit: BoxFit.fill);
-          var aaa =
-              Image(image: ResizeImage(image, width: 100000, height: 100000));
-          return Text(im.Image.rgb());
+          imageUtil.Image shrinkedImage = imageUtil.copyResize(
+              imageUtil.decodeImage(image.bytes)!,
+              width: emojiArtWidth,
+              height: emojiArtHeight);
+
+          String emojiArt = "";
+
+          for (int i = 0; i < emojiArtHeight; i++) {
+            for (int j = 0; j < emojiArtWidth; j++) {
+              int abgr = shrinkedImage.getPixel(j, i); // #AABBGGRR
+              int argb = Utils().abgrToArgb(abgr); // #AARRGGBB
+              Color color = Color(argb);
+              String emoji = Utils().similarEmoji(color);
+              emojiArt += emoji;
+            }
+            emojiArt += "\n";
+          }
+          return Column(
+            children: <Widget>[
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Container(
+                    width: 50.0,
+                    height: 50.0,
+                    alignment: Alignment.center,
+                    decoration: new BoxDecoration(
+                      image: DecorationImage(
+                          image: AssetImage('mark_arrow_down.png'),
+                          fit: BoxFit.fill),
+                    ),
+                  ),
+                  Text("クリックしてクリップボードにコピー"),
+                ],
+              ),
+              InkWell(
+                onTap: () {
+                  Clipboard.setData(new ClipboardData(text: emojiArt));
+                },
+                child: Text(emojiArt),
+              ),
+              // Image.memory(
+              //   Uint8List.fromList(imageUtil.encodeJpg(shrinkedImage)),
+              // )
+            ],
+          );
+
+          // return Image.memory(
+          //   Uint8List.fromList(imageUtil.encodeJpg(shrinkedImage)),
+          //   width: 256,
+          //   height: 256,
+          //   fit: BoxFit.fill,
+          // );
+          // return Image.memory(image.bytes);
           // return ConstrainedBox(
           //   constraints: BoxConstraints(maxWidth: 600),
           //   child: Container(
