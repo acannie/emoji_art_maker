@@ -22,8 +22,6 @@ class MyApp extends StatelessWidget {
           providers: [
             ChangeNotifierProvider(
                 create: (context) => PickedImageController()),
-            // ChangeNotifierProvider(
-            //     create: (context) => ImageUploadController()),
           ],
         ));
   }

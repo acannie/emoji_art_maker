@@ -69,74 +69,8 @@ class EmojiArtPreviewWidget extends StatelessWidget {
                 },
                 child: Text(emojiArt),
               ),
-              // Image.memory(
-              //   Uint8List.fromList(imageUtil.encodeJpg(shrinkedImage)),
-              // )
             ],
           );
-
-          // return Image.memory(
-          //   Uint8List.fromList(imageUtil.encodeJpg(shrinkedImage)),
-          //   width: 256,
-          //   height: 256,
-          //   fit: BoxFit.fill,
-          // );
-          // return Image.memory(image.bytes);
-          // return ConstrainedBox(
-          //   constraints: BoxConstraints(maxWidth: 600),
-          //   child: Container(
-          //     decoration: BoxDecoration(
-          //       border: Border.all(color: Colors.black),
-          //     ),
-          //     child: GridView.count(
-          //       shrinkWrap: true,
-          //       primary: false,
-          //       crossAxisSpacing: 0,
-          //       mainAxisSpacing: 0,
-          //       crossAxisCount: 32,
-          //       children: <Widget>[
-          //         for (var i = 0;
-          //             i < image.myDesignColorTable.length;
-          //             i++)
-          //           for (var j = 0;
-          //               j < image.myDesignColorTable.length;
-          //               j++)
-          //             Container(
-          //               decoration: BoxDecoration(
-          //                 color: Color.fromRGBO(
-          //                   image.palette[
-          //                       image.myDesignColorTable[i][j]][0],
-          //                   image.palette[
-          //                       image.myDesignColorTable[i][j]][1],
-          //                   image.palette[
-          //                       image.myDesignColorTable[i][j]][2],
-          //                   1,
-          //                 ),
-          //                 border: Utils().markLineBorder(
-          //                     i, j, image.myDesignColorTable.length),
-          //               ),
-          //               child: Text(
-          //                 "${image.myDesignColorTable[i][j] + 1}",
-          //                 maxLines: 1,
-          //                 style: TextStyle(
-          //                     color: Utils().fontColor(
-          //                   Color.fromRGBO(
-          //                     image.palette[
-          //                         image.myDesignColorTable[i][j]][0],
-          //                     image.palette[
-          //                         image.myDesignColorTable[i][j]][1],
-          //                     image.palette[
-          //                         image.myDesignColorTable[i][j]][2],
-          //                     1,
-          //                   ),
-          //                 )),
-          //                 textAlign: TextAlign.center,
-          //               ),
-          //             ),
-          //       ],
-          //     ),
-          //   ),
-          // );
         } else if (null != snapshot.error) {
           return Container(
             child: Text(

@@ -51,11 +51,6 @@ class PickedImageWidget extends StatelessWidget {
                     onTap: () {
                       _future = controller.pickImage();
                     },
-                    //   child: Image.memory(
-                    //       Uint8List.fromList(imageUtil.encodeJpg(image)),
-                    //       width: 256,
-                    //       height: 256,
-                    //       fit: BoxFit.fill),
                     child: Image.memory(image.bytes),
                   ),
                   Padding(
