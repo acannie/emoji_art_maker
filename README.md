@@ -1,1 +1,0 @@
-# emoji_art_bot
