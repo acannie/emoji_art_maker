@@ -1,7 +1,3 @@
-import 'dart:async';
-import 'dart:typed_data';
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:image/image.dart' as imageUtil;
@@ -12,8 +8,8 @@ import 'pick_image.dart';
 
 // 絵文字アートのプレビューを生成
 class EmojiArtPreviewWidget extends StatelessWidget {
-  int emojiArtWidth = 100;
-  int emojiArtHeight = 100;
+  final int emojiArtWidth = 100;
+  final int emojiArtHeight = 100;
 
   @override
   Widget build(BuildContext context) {
