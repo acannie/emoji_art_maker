@@ -89,11 +89,12 @@ class EmojiArtPreviewWidget extends StatelessWidget {
             '絵文字アートは\nここに表示されるよ',
             textAlign: TextAlign.center,
           ),
-          height: 100,
-          width: 100,
+          height: 300,
+          width: 400,
           decoration: BoxDecoration(
             border: Border.all(color: Colors.blue),
           ),
+          alignment: Alignment.center,
         );
       },
     );

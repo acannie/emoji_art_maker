@@ -82,11 +82,12 @@ class PickedImageWidget extends StatelessWidget {
                   '画像を選択してね',
                   textAlign: TextAlign.center,
                 ),
-                height: 100,
-                width: 100,
+                height: 300,
+                width: 400,
                 decoration: BoxDecoration(
                   border: Border.all(color: Colors.blue),
                 ),
+                alignment: Alignment.center,
               ),
               onTap: () {
                 _future = controller.pickImage();
