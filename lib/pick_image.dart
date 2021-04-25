@@ -38,6 +38,8 @@ class PickedImageWidget extends StatelessWidget {
       child: FutureBuilder<MemoryImage>(
           future: _future,
           builder: (BuildContext context, AsyncSnapshot<MemoryImage> snapshot) {
+            // if (snapshot.connectionState == ConnectionState.waiting) {
+            //   return CircularProgressIndicator();
             if (snapshot.connectionState == ConnectionState.done &&
                 null != snapshot.data) {
               MemoryImage? image = snapshot.data;
@@ -71,15 +73,24 @@ class PickedImageWidget extends StatelessWidget {
                   ),
                 ]);
               }
+            } else if (null != snapshot.error) {
+              return CircularProgressIndicator();
             }
-            return Padding(
-              padding: EdgeInsets.all(20),
-              child: OutlinedButton(
-                onPressed: () {
-                  _future = controller.pickImage();
-                },
-                child: Text('Choose Image'),
+            return InkWell(
+              child: Container(
+                child: Text(
+                  '画像を選択してね',
+                  textAlign: TextAlign.center,
+                ),
+                height: 100,
+                width: 100,
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.blue),
+                ),
               ),
+              onTap: () {
+                _future = controller.pickImage();
+              },
             );
           }),
     );

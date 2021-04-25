@@ -19,9 +19,9 @@ class EmojiArtPreviewWidget extends StatelessWidget {
     return FutureBuilder<MemoryImage>(
       future: pickedController.imageFuture,
       builder: (BuildContext context, AsyncSnapshot<MemoryImage> snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return CircularProgressIndicator();
-        } else if (snapshot.connectionState == ConnectionState.done &&
+        // if (snapshot.connectionState == ConnectionState.waiting) {
+        //   return CircularProgressIndicator();
+        if (snapshot.connectionState == ConnectionState.done &&
             null != snapshot.data) {
           MemoryImage image = snapshot.data!;
 
@@ -83,19 +83,18 @@ class EmojiArtPreviewWidget extends StatelessWidget {
           );
         } else if (null != snapshot.error) {
           return CircularProgressIndicator();
-        } else {
-          return Container(
-            child: Text(
-              'No Image Selected',
-              textAlign: TextAlign.center,
-            ),
-            height: 100,
-            width: 100,
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.blue),
-            ),
-          );
         }
+        return Container(
+          child: Text(
+            '絵文字アートは\nここに表示されるよ',
+            textAlign: TextAlign.center,
+          ),
+          height: 100,
+          width: 100,
+          decoration: BoxDecoration(
+            border: Border.all(color: Colors.blue),
+          ),
+        );
       },
     );
   }
