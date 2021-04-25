@@ -26,6 +26,9 @@ class Utils {
   }
 
   String similarEmoji(Color pixel) {
+    if (pixel.alpha == 0) {
+      return emojis!["white"]!["emoji"]!;
+    }
     double smallestDistance = sqrt(pow(255, 2) * 3);
     String targetEmoji = "?";
     emojis!.forEach((String key, dynamic value) {
