@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+import 'package:image/image.dart' as imageUtil;
 
 // FEに画像がアップロードされたことを通知
 class PickedImageController with ChangeNotifier {
@@ -50,7 +51,16 @@ class PickedImageWidget extends StatelessWidget {
                     onTap: () {
                       _future = controller.pickImage();
                     },
-                    child: Image.memory(image.bytes),
+                    child: Container(
+                      width: 400,
+                      height: 300,
+                      child: Flexible(
+                        child: Image.memory(image.bytes),
+                      ),
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.blue),
+                      ),
+                    ),
                   ),
                   Padding(
                     padding: EdgeInsets.all(20),
@@ -63,8 +73,9 @@ class PickedImageWidget extends StatelessWidget {
                           alignment: Alignment.center,
                           decoration: new BoxDecoration(
                             image: DecorationImage(
-                                image: AssetImage('mark_arrow_up.png'),
-                                fit: BoxFit.fill),
+                              image: AssetImage('mark_arrow_up.png'),
+                              fit: BoxFit.fill,
+                            ),
                           ),
                         ),
                         Text("クリックして画像選択"),
@@ -104,8 +115,9 @@ class PickedImageWidget extends StatelessWidget {
                   alignment: Alignment.center,
                   decoration: new BoxDecoration(
                     image: DecorationImage(
-                        image: AssetImage('mark_arrow_down.png'),
-                        fit: BoxFit.fill),
+                      image: AssetImage('mark_arrow_down.png'),
+                      fit: BoxFit.fill,
+                    ),
                   ),
                 ),
               ],

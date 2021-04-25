@@ -53,6 +53,9 @@ class EmojiArtPreviewWidget extends StatelessWidget {
               String emoji = Utils().similarEmoji(color);
               emojiArt += emoji;
             }
+            if (i == emojiArtHeight - 1) {
+              break;
+            }
             emojiArt += "\n";
           }
           return Column(
@@ -66,8 +69,9 @@ class EmojiArtPreviewWidget extends StatelessWidget {
                     alignment: Alignment.center,
                     decoration: new BoxDecoration(
                       image: DecorationImage(
-                          image: AssetImage('mark_arrow_down.png'),
-                          fit: BoxFit.fill),
+                        image: AssetImage('mark_arrow_down.png'),
+                        fit: BoxFit.fill,
+                      ),
                     ),
                   ),
                   Text("クリックしてクリップボードにコピー"),
@@ -77,7 +81,12 @@ class EmojiArtPreviewWidget extends StatelessWidget {
                 onTap: () {
                   Clipboard.setData(new ClipboardData(text: emojiArt));
                 },
-                child: Text(emojiArt),
+                child: Container(
+                  child: Text(emojiArt),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.blue),
+                  ),
+                ),
               ),
             ],
           );
