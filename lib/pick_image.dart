@@ -76,22 +76,39 @@ class PickedImageWidget extends StatelessWidget {
             } else if (null != snapshot.error) {
               return CircularProgressIndicator();
             }
-            return InkWell(
-              child: Container(
-                child: Text(
-                  '画像を選択してね',
-                  textAlign: TextAlign.center,
+            return Column(
+              children: <Widget>[
+                InkWell(
+                  child: Container(
+                    child: Text(
+                      '画像を選択してね',
+                      textAlign: TextAlign.center,
+                    ),
+                    height: 300,
+                    width: 400,
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.blue),
+                    ),
+                    alignment: Alignment.center,
+                  ),
+                  onTap: () {
+                    _future = controller.pickImage();
+                  },
                 ),
-                height: 300,
-                width: 400,
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.blue),
+                Padding(
+                  padding: EdgeInsets.all(20),
                 ),
-                alignment: Alignment.center,
-              ),
-              onTap: () {
-                _future = controller.pickImage();
-              },
+                Container(
+                  width: 100.0,
+                  height: 100.0,
+                  alignment: Alignment.center,
+                  decoration: new BoxDecoration(
+                    image: DecorationImage(
+                        image: AssetImage('mark_arrow_down.png'),
+                        fit: BoxFit.fill),
+                  ),
+                ),
+              ],
             );
           }),
     );
