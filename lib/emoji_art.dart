@@ -71,8 +71,6 @@ class EmojiArtPreviewWidget extends StatelessWidget {
                     ),
                   ),
                   Text("クリックしてクリップボードにコピー"),
-                  Text(emojiArtHeight.toString() + "\n"),
-                  Text(emojiArtWidth.toString()),
                 ],
               ),
               InkWell(
