@@ -82,6 +82,8 @@ class EmojiArtPreviewWidget extends StatelessWidget {
             ],
           );
         } else if (null != snapshot.error) {
+          return CircularProgressIndicator();
+        } else {
           return Container(
             child: Text(
               'No Image Selected',
@@ -93,8 +95,6 @@ class EmojiArtPreviewWidget extends StatelessWidget {
               border: Border.all(color: Colors.blue),
             ),
           );
-        } else {
-          return SizedBox.shrink();
         }
       },
     );
