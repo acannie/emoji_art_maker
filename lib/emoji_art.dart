@@ -19,9 +19,9 @@ class EmojiArtPreviewWidget extends StatelessWidget {
     return FutureBuilder<MemoryImage>(
       future: pickedController.imageFuture,
       builder: (BuildContext context, AsyncSnapshot<MemoryImage> snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return CircularProgressIndicator();
-        } else if (snapshot.connectionState == ConnectionState.done &&
+        // if (snapshot.connectionState == ConnectionState.waiting) {
+        //   return CircularProgressIndicator();
+        if (snapshot.connectionState == ConnectionState.done &&
             null != snapshot.data) {
           MemoryImage image = snapshot.data!;
 
@@ -53,6 +53,9 @@ class EmojiArtPreviewWidget extends StatelessWidget {
               String emoji = Utils().similarEmoji(color);
               emojiArt += emoji;
             }
+            if (i == emojiArtHeight - 1) {
+              break;
+            }
             emojiArt += "\n";
           }
           return Column(
@@ -66,8 +69,9 @@ class EmojiArtPreviewWidget extends StatelessWidget {
                     alignment: Alignment.center,
                     decoration: new BoxDecoration(
                       image: DecorationImage(
-                          image: AssetImage('mark_arrow_down.png'),
-                          fit: BoxFit.fill),
+                        image: AssetImage('mark_arrow_down.png'),
+                        fit: BoxFit.fill,
+                      ),
                     ),
                   ),
                   Text("クリックしてクリップボードにコピー"),
@@ -77,25 +81,30 @@ class EmojiArtPreviewWidget extends StatelessWidget {
                 onTap: () {
                   Clipboard.setData(new ClipboardData(text: emojiArt));
                 },
-                child: Text(emojiArt),
+                child: Container(
+                  child: Text(emojiArt),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.blue),
+                  ),
+                ),
               ),
             ],
           );
         } else if (null != snapshot.error) {
-          return Container(
-            child: Text(
-              'No Image Selected',
-              textAlign: TextAlign.center,
-            ),
-            height: 100,
-            width: 100,
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.blue),
-            ),
-          );
-        } else {
-          return SizedBox.shrink();
+          return CircularProgressIndicator();
         }
+        return Container(
+          child: Text(
+            '絵文字アートは\nここに表示されるよ',
+            textAlign: TextAlign.center,
+          ),
+          height: 300,
+          width: 400,
+          decoration: BoxDecoration(
+            border: Border.all(color: Colors.blue),
+          ),
+          alignment: Alignment.center,
+        );
       },
     );
   }

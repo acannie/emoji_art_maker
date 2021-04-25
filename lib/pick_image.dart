@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+import 'package:image/image.dart' as imageUtil;
 
 // FEに画像がアップロードされたことを通知
 class PickedImageController with ChangeNotifier {
@@ -38,6 +39,8 @@ class PickedImageWidget extends StatelessWidget {
       child: FutureBuilder<MemoryImage>(
           future: _future,
           builder: (BuildContext context, AsyncSnapshot<MemoryImage> snapshot) {
+            // if (snapshot.connectionState == ConnectionState.waiting) {
+            //   return CircularProgressIndicator();
             if (snapshot.connectionState == ConnectionState.done &&
                 null != snapshot.data) {
               MemoryImage? image = snapshot.data;
@@ -48,7 +51,16 @@ class PickedImageWidget extends StatelessWidget {
                     onTap: () {
                       _future = controller.pickImage();
                     },
-                    child: Image.memory(image.bytes),
+                    child: Container(
+                      width: 400,
+                      height: 300,
+                      child: Flexible(
+                        child: Image.memory(image.bytes),
+                      ),
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.blue),
+                      ),
+                    ),
                   ),
                   Padding(
                     padding: EdgeInsets.all(20),
@@ -61,8 +73,9 @@ class PickedImageWidget extends StatelessWidget {
                           alignment: Alignment.center,
                           decoration: new BoxDecoration(
                             image: DecorationImage(
-                                image: AssetImage('mark_arrow_up.png'),
-                                fit: BoxFit.fill),
+                              image: AssetImage('mark_arrow_up.png'),
+                              fit: BoxFit.fill,
+                            ),
                           ),
                         ),
                         Text("クリックして画像選択"),
@@ -71,15 +84,43 @@ class PickedImageWidget extends StatelessWidget {
                   ),
                 ]);
               }
+            } else if (null != snapshot.error) {
+              return CircularProgressIndicator();
             }
-            return Padding(
-              padding: EdgeInsets.all(20),
-              child: OutlinedButton(
-                onPressed: () {
-                  _future = controller.pickImage();
-                },
-                child: Text('Choose Image'),
-              ),
+            return Column(
+              children: <Widget>[
+                InkWell(
+                  child: Container(
+                    child: Text(
+                      '画像を選択してね',
+                      textAlign: TextAlign.center,
+                    ),
+                    height: 300,
+                    width: 400,
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.blue),
+                    ),
+                    alignment: Alignment.center,
+                  ),
+                  onTap: () {
+                    _future = controller.pickImage();
+                  },
+                ),
+                Padding(
+                  padding: EdgeInsets.all(20),
+                ),
+                Container(
+                  width: 100.0,
+                  height: 100.0,
+                  alignment: Alignment.center,
+                  decoration: new BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage('mark_arrow_down.png'),
+                      fit: BoxFit.fill,
+                    ),
+                  ),
+                ),
+              ],
             );
           }),
     );
