@@ -1,16 +1,16 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:image/image.dart' as imageUtil;
 import 'package:flutter/services.dart';
+import 'package:image_size_getter/image_size_getter.dart';
 
 import 'utils.dart';
 import 'pick_image.dart';
 
 // 絵文字アートのプレビューを生成
 class EmojiArtPreviewWidget extends StatelessWidget {
-  final int emojiArtWidth = 100;
-  final int emojiArtHeight = 100;
-
   @override
   Widget build(BuildContext context) {
     final PickedImageController pickedController =
@@ -24,10 +24,24 @@ class EmojiArtPreviewWidget extends StatelessWidget {
         } else if (snapshot.connectionState == ConnectionState.done &&
             null != snapshot.data) {
           MemoryImage image = snapshot.data!;
+
+          // 縦横のマス数を決定
+          final Size memoryImageSize =
+              ImageSizeGetter.getSize(MemoryInput(image.bytes));
+          final int maxSize = 30; // TODO 入力できるようにする
+          final int imageWidth = memoryImageSize.width;
+          final int imageHeight = memoryImageSize.height;
+
+          final int emojiArtWidth =
+              (imageWidth / max(imageWidth, imageHeight) * maxSize).round();
+          final int emojiArtHeight =
+              (imageHeight / max(imageWidth, imageHeight) * maxSize).round();
+
           imageUtil.Image shrinkedImage = imageUtil.copyResize(
-              imageUtil.decodeImage(image.bytes)!,
-              width: emojiArtWidth,
-              height: emojiArtHeight);
+            imageUtil.decodeImage(image.bytes)!,
+            width: emojiArtWidth,
+            height: emojiArtHeight,
+          );
 
           String emojiArt = "";
 
