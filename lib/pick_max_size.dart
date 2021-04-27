@@ -25,6 +25,20 @@ class PickMaxSizeController with ChangeNotifier {
   void reloader() async {
     notifyListeners();
   }
+
+  void maxSizeIncrementer() async {
+    if (_maxSize <= 1) {
+      return;
+    }
+    _maxSize += 1;
+  }
+
+  void maxSizeDecrementer() async {
+    if (_maxSize >= 99) {
+      return;
+    }
+    _maxSize -= 1;
+  }
 }
 
 // 絵文字アート長辺の絵文字数を指定
@@ -48,6 +62,7 @@ class PickedMaxSizeWidget extends StatelessWidget {
           alignment: Alignment.center,
           width: 100,
           child: TextFormField(
+            initialValue: "30",
             textAlign: TextAlign.center,
             enabled: true,
             maxLength: 2,
