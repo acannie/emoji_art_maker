@@ -40,9 +40,6 @@ class MyDesigner extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.all(20),
                   ),
-                  Padding(
-                    padding: EdgeInsets.all(20),
-                  ),
                   PickedImageWidget(),
                   PickedMaxSizeWidget(),
                   Wrap(

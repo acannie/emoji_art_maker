@@ -9,16 +9,12 @@ class PickMaxSizeController with ChangeNotifier {
   int _maxSize = 30;
   int get maxSize => _maxSize;
 
-  String _artSize = "<100";
-  String get artSize => _artSize;
-
   Future<int> pickMaxSize(String? n) async {
     if (n == null || n == "0") {
       n = "1";
     }
 
     _maxSize = int.parse(n);
-    _artSize = n;
     return _maxSize;
   }
 
