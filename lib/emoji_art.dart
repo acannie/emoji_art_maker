@@ -85,7 +85,7 @@ class EmojiArtPreviewWidget extends StatelessWidget {
                     onPressed: pickedMaxSizeController.reloader,
                     color: Colors.blue,
                     icon: Icon(Icons.refresh),
-                  )
+                  ),
                 ],
               ),
               InkWell(
