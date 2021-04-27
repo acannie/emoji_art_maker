@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import 'view.dart';
 import 'pick_image.dart';
+import 'pick_max_size.dart';
 
 void main() {
   runApp(MyApp());
@@ -21,7 +22,11 @@ class MyApp extends StatelessWidget {
           child: MyDesigner(),
           providers: [
             ChangeNotifierProvider(
-                create: (context) => PickedImageController()),
+              create: (context) => PickedImageController(),
+            ),
+            ChangeNotifierProvider(
+              create: (context) => PickMaxSizeController(),
+            ),
           ],
         ));
   }

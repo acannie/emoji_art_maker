@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'emoji_art.dart';
 import 'pick_image.dart';
+import 'pick_max_size.dart';
 
 // ページ全体のレイアウトを生成
 class MyDesigner extends StatelessWidget {
@@ -39,7 +40,11 @@ class MyDesigner extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.all(20),
                   ),
+                  Padding(
+                    padding: EdgeInsets.all(20),
+                  ),
                   PickedImageWidget(),
+                  PickedMaxSizeWidget(),
                   Wrap(
                     direction: Axis.horizontal,
                     children: <Widget>[
