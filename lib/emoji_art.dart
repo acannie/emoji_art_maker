@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_view/pick_max_size.dart';
 import 'package:provider/provider.dart';
 import 'package:image/image.dart' as imageUtil;
 import 'package:flutter/services.dart';
@@ -8,6 +9,7 @@ import 'package:image_size_getter/image_size_getter.dart';
 
 import 'utils.dart';
 import 'pick_image.dart';
+import 'pick_max_size.dart';
 
 // 絵文字アートのプレビューを生成
 class EmojiArtPreviewWidget extends StatelessWidget {
@@ -15,6 +17,9 @@ class EmojiArtPreviewWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final PickedImageController pickedController =
         Provider.of<PickedImageController>(context);
+
+    final PickMaxSizeController pickedMaxSizeController =
+        Provider.of<PickMaxSizeController>(context);
 
     return FutureBuilder<MemoryImage>(
       future: pickedController.imageFuture,
@@ -28,7 +33,7 @@ class EmojiArtPreviewWidget extends StatelessWidget {
           // 縦横のマス数を決定
           final Size memoryImageSize =
               ImageSizeGetter.getSize(MemoryInput(image.bytes));
-          final int maxSize = 30; // TODO 入力できるようにする
+          final int maxSize = pickedMaxSizeController.maxSize;
           final int imageWidth = memoryImageSize.width;
           final int imageHeight = memoryImageSize.height;
 
@@ -75,6 +80,12 @@ class EmojiArtPreviewWidget extends StatelessWidget {
                     ),
                   ),
                   Text("クリックしてクリップボードにコピー"),
+                  IconButton(
+                    iconSize: 40,
+                    onPressed: pickedMaxSizeController.reloader,
+                    color: Colors.blue,
+                    icon: Icon(Icons.refresh),
+                  ),
                 ],
               ),
               InkWell(
